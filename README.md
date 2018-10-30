@@ -1,16 +1,7 @@
 # Enron Submission Free-Response Questions
 
 
-A critical part of machine learning is making sense of your analysis process and communicating it to others. The questions below will help us understand your decision-making process and allow us to give feedback on your project. Please answer each question; your answers should be about 1-2 paragraphs per question. If you find yourself writing much more than that, take a step back and see if you can simplify your response!
 
-
-When your evaluator looks at your responses, he or she will use a specific list of rubric items to assess your answers. Here is the link to that rubric: [Link] Each question has one or more specific rubric items associated with it, so before you submit an answer, take a look at that part of the rubric. If your response does not meet expectations for all rubric points, you will be asked to revise and resubmit your project. Make sure that your responses are detailed enough that the evaluator will be able to understand the steps you took and your thought processes as you went through the data analysis.
-
-
-Once you’ve submitted your responses, your coach will take a look and may ask a few more focused follow-up questions on one or more of your answers.  
-
-
-We can’t wait to see what you’ve put together for this project!
 
 
 
@@ -18,11 +9,53 @@ We can’t wait to see what you’ve put together for this project!
 
 The main goal of this project was to use Machine learning algorithms to investigate persons of interest within the Enron Dataset. The dataset consisted of emails from employees of Enron as well as financial data. The dataset was also broken up to distinguish "POI" (Persons of interest) who, per the project [details](https://classroom.udacity.com/nanodegrees/nd002/parts/0021345409/modules/317428862475461/lessons/3174288624239847/concepts/31803986370923), were "individuals who were indicted, reached a settlement or plea deal with the government, or testified in exchange for prosecution immunity."
 
-What features did you end up using in your POI identifier, and what selection process did you use to pick them? Did you have to do any scaling? Why or why not? As part of the assignment, you should attempt to engineer your own feature that does not come ready-made in the dataset -- explain what feature you tried to make, and the rationale behind it. (You do not necessarily have to use it in the final analysis, only engineer and test it.) In your feature selection step, if you used an algorithm like a decision tree, please also give the feature importances of the features that you use, and if you used an automated feature selection function like SelectKBest, please report the feature scores and reasons for your choice of parameter values.  [relevant rubric items: “create new features”, “intelligently select features”, “properly scale features”]
+The most noticable outlier was the TOTAL row. This had to be removed otherwise it would sku all of the data. K. Lay and J. Skilling were finincial outliers but they were left in because they were needed in the investigation.
 
-What algorithm did you end up using? What other one(s) did you try? How did model performance differ between algorithms?  [relevant rubric item: “pick an algorithm”]
+### What features did you end up using in your POI identifier
+`exercised_stock_options`  `shared_receipt_with_poi` `fraction_from_poi` `expenses other salary`
 
-What does it mean to tune the parameters of an algorithm, and what can happen if you don’t do this well?  How did you tune the parameters of your particular algorithm? What parameters did you tune? (Some algorithms do not have parameters that you need to tune -- if this is the case for the one you picked, identify and briefly explain how you would have done it for the model that was not your final choice or a different model that does utilize parameter tuning, e.g. a decision tree classifier).  [relevant rubric items: “discuss parameter tuning”, “tune the algorithm”]
+I also created the following features:
+
+`fraction_from_poi` (The fraction of messages to that person from a person of interest)
+`fraction_to_poi` (The fraction of messages from that person to a person of interest)
+`from_specific_email` 
+### These were made under the assumption that a POI would email another POI more often
+
+I went through several rounds of feature selection. . On the first step I created set of features based on data visualization and intuition. Then I examine three classifications on these features. Decision Trees was determined to be the strongest algorithm so that was the one I chose. Since I choose Decision Trees as a classifier, I used the feature importance method to optimize features. My results were as follows:
+
+| rank | feature|
+|-------|------|
+| 0.031483 | salary |
+| 0.145820 | fraction_from_poi|
+| 0.185831 | expenses |
+| 0.195282 | shared_receipt_with_poi |
+| 0.217197 | exercised_stock_options|
+| 0.224388 | other|
+
+
+
+
+
+
+### What algorithm did you end up using? What other one(s) did you try? How did model performance differ between algorithms?  [relevant rubric item: “pick an algorithm”]
+The algorithms I tied were Naive Bayes (Accuracy 0.82100, Precision 0.29026, Recall 0.23700) SVM (ERROR) and Decision Tree (Accuracy 0.82620, Precision 0.34617, Recall 0.34150)
+
+### What does it mean to tune the parameters of an algorithm, and what can happen if you don’t do this well?  
+
+Basically, tuning the parameters means adjusting them to get the best performance from the algorithm. If this isn't done properly, your results may be flawed or you may not use the best set of parameters for your dataset. 
+
+### How did you tune the parameters of your particular algorithm? What parameters did you tune? (Some algorithms do not have parameters that you need to tune -- if this is the case for the one you picked, identify and briefly explain how you would have done it for the model that was not your final choice or a different model that does utilize parameter tuning, e.g. a decision tree classifier).  [relevant rubric items: “discuss parameter tuning”, “tune the algorithm”]
+
+I used [GridSearchCV](http://scikit-learn.org/stable/modules/generated/sklearn.model_selection.GridSearchCV.html) to tune my algorithm.
+
+The results were as follows:
+
+| Parameter | Settings for Investigation |
+|----------|-------------|
+|min_samples_split |	[2,6,8,10] |
+|Splitter	| (random,best) |
+| max_depth	| [None,2,4,6,8,10,15,20] |
+
 
 ### What is validation, and what’s a classic mistake you can make if you do it wrong? How did you validate your analysis?  [relevant rubric items: “discuss validation”, “validation strategy”]
 
