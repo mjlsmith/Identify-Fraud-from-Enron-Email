@@ -1,41 +1,141 @@
-# Identify-Fraud-from-Enron-Email
+# Enron Submission Free-Response Questions
 
 
-## Udacity Machine Learning Final Project
+A critical part of machine learning is making sense of your analysis process and communicating it to others. The questions below will help us understand your decision-making process and allow us to give feedback on your project. Please answer each question; your answers should be about 1-2 paragraphs per question. If you find yourself writing much more than that, take a step back and see if you can simplify your response!
 
 
-### How do I Complete this Project?
-This project is connected to the Intro to Machine Learning course, but depending on your background knowledge of machine learning, you may not need to take the whole thing to complete this project.
+When your evaluator looks at your responses, he or she will use a specific list of rubric items to assess your answers. Here is the link to that rubric: [Link] Each question has one or more specific rubric items associated with it, so before you submit an answer, take a look at that part of the rubric. If your response does not meet expectations for all rubric points, you will be asked to revise and resubmit your project. Make sure that your responses are detailed enough that the evaluator will be able to understand the steps you took and your thought processes as you went through the data analysis.
 
-A note before you begin: the mini-projects in the Intro to Machine Learning class were mostly designed to have lots of data points, give intuitive results, and otherwise behave nicely. This project is significantly tougher in that we're now using the real data, which can be messy and does not have as many data points as we usually hope for when doing machine learning. Don't get discouraged--imperfect data is something you need to be used to as a data analyst! If you encounter something you haven't seen before, take a step back and think about a smart way around. You can do it!
 
-### Project Overview
-In 2000, Enron was one of the largest companies in the United States. By 2002, it had collapsed into bankruptcy due to widespread corporate fraud. In the resulting Federal investigation, a significant amount of typically confidential information entered into the public record, including tens of thousands of emails and detailed financial data for top executives. In this project, you will play detective, and put your new skills to use by building a person of interest identifier based on financial and email data made public as a result of the Enron scandal. To assist you in your detective work, we've combined this data with a hand-generated list of persons of interest in the fraud case, which means individuals who were indicted, reached a settlement or plea deal with the government, or testified in exchange for prosecution immunity.
+Once you’ve submitted your responses, your coach will take a look and may ask a few more focused follow-up questions on one or more of your answers.  
 
-### Resources Needed
-You should have python and sklearn running on your computer, as well as the starter code (both python scripts and the Enron dataset) that you downloaded as part of the first mini-project in the Intro to Machine Learning course. You can get the starter code on git: ```git clone https://github.com/udacity/ud120-projects.git```
 
-The starter code can be found in the final_project directory of the codebase that you downloaded for use with the mini-projects. Some relevant files: 
+We can’t wait to see what you’ve put together for this project!
 
-```poi_id.py ``` : Starter code for the POI identifier, you will write your analysis here. You will also submit a version of this file for your evaluator to verify your algorithm and results. 
 
-```final_project_dataset.pkl```  : The dataset for the project, more details below. 
 
-```tester.py ```: When you turn in your analysis for evaluation by Udacity, you will submit the algorithm, dataset and list of features that you use (these are created automatically in ```poi_id.py``` ). The evaluator will then use this code to test your result, to make sure we see performance that’s similar to what you report. You don’t need to do anything with this code, but we provide it for transparency and for your reference. 
+### Summarize for us the goal of this project and how machine learning is useful in trying to accomplish it. As part of your answer, give some background on the dataset and how it can be used to answer the project question. Were there any outliers in the data when you got it, and how did you handle those?  [relevant rubric items: “data exploration”, “outlier investigation”]
 
-```emails_by_address``` : this directory contains many text files, each of which contains all the messages to or from a particular email address. It is for your reference, if you want to create more advanced features based on the details of the emails dataset. You do not need to process the e-mail corpus in order to complete the project.
+The main goal of this project was to use Machine learning algorithms to investigate persons of interest within the Enron Dataset. The dataset consisted of emails from employees of Enron as well as financial data. The dataset was also broken up to distinguish "POI" (Persons of interest) who, per the project [details](https://classroom.udacity.com/nanodegrees/nd002/parts/0021345409/modules/317428862475461/lessons/3174288624239847/concepts/31803986370923), were "individuals who were indicted, reached a settlement or plea deal with the government, or testified in exchange for prosecution immunity."
 
-### Steps to Success
-We will provide you with starter code that reads in the data, takes your features of choice, then puts them into a numpy array, which is the input form that most sklearn functions assume. Your job is to engineer the features, pick and tune an algorithm, and to test and evaluate your identifier. Several of the mini-projects were designed with this final project in mind, so be on the lookout for ways to use the work you’ve already done.
+What features did you end up using in your POI identifier, and what selection process did you use to pick them? Did you have to do any scaling? Why or why not? As part of the assignment, you should attempt to engineer your own feature that does not come ready-made in the dataset -- explain what feature you tried to make, and the rationale behind it. (You do not necessarily have to use it in the final analysis, only engineer and test it.) In your feature selection step, if you used an algorithm like a decision tree, please also give the feature importances of the features that you use, and if you used an automated feature selection function like SelectKBest, please report the feature scores and reasons for your choice of parameter values.  [relevant rubric items: “create new features”, “intelligently select features”, “properly scale features”]
 
-As preprocessing to this project, we've combined the Enron email and financial data into a dictionary, where each key-value pair in the dictionary corresponds to one person. The dictionary key is the person's name, and the value is another dictionary, which contains the names of all the features and their values for that person. The features in the data fall into three major types, namely financial features, email features and POI labels.
+What algorithm did you end up using? What other one(s) did you try? How did model performance differ between algorithms?  [relevant rubric item: “pick an algorithm”]
 
-**financial features** : ['salary', 'deferral_payments', 'total_payments', 'loan_advances', 'bonus', 'restricted_stock_deferred', 'deferred_income', 'total_stock_value', 'expenses', 'exercised_stock_options', 'other', 'long_term_incentive', 'restricted_stock', 'director_fees'] (all units are in US dollars)
+What does it mean to tune the parameters of an algorithm, and what can happen if you don’t do this well?  How did you tune the parameters of your particular algorithm? What parameters did you tune? (Some algorithms do not have parameters that you need to tune -- if this is the case for the one you picked, identify and briefly explain how you would have done it for the model that was not your final choice or a different model that does utilize parameter tuning, e.g. a decision tree classifier).  [relevant rubric items: “discuss parameter tuning”, “tune the algorithm”]
 
-**email features** : ['to_messages', 'email_address', 'from_poi_to_this_person', 'from_messages', 'from_this_person_to_poi', 'shared_receipt_with_poi'] (units are generally number of emails messages; notable exception is ‘email_address’, which is a text string)
+### What is validation, and what’s a classic mistake you can make if you do it wrong? How did you validate your analysis?  [relevant rubric items: “discuss validation”, “validation strategy”]
 
-**POI label** : [‘poi’] (boolean, represented as integer)
+To validate my analysis I used Stratified Shuffle Split. This can be seen in the sklearn [documentation](http://scikit-learn.org/stable/modules/generated/sklearn.model_selection.StratifiedShuffleSplit.html)
 
-You are encouraged to make, transform or rescale new features from the starter features. If you do this, you should store the new feature to my_dataset, and if you use the new feature in the final algorithm, you should also add the feature name to my_feature_list, so your evaluator can access it during testing. For a concrete example of a new feature that you could add to the dataset, refer to the lesson on Feature Selection.
+### Give at least 2 evaluation metrics and your average performance for each of them.  Explain an interpretation of your metrics that says something human-understandable about your algorithm’s performance. [relevant rubric item: “usage of evaluation metrics”]
 
-In addition, we advise that you keep notes as you work through the project. As part of your project submission, you will compose answers to a series of questions (also given on the next page) to understand your approach towards different aspects of the analysis. Your thought process is, in many ways, more important than your final project and we will by trying to probe your thought process in these questions.
+For evaluation metric, I used percision an recall. The final results can be seen below. 
+
+| Metric | Value |
+|--------|-------|
+|percision|0.52166|
+|Recall | 0.41550|
+|Accuracy | 086207|
+| True Positive| 831|
+|False Positive| 762|
+| True Negitive | 11238|
+
+### Conclusion 
+Percision and Recall have very similar values and both are higher than 0.3 so the goal was reached. A percision of 0.52166 means that when the model detects a person as a POI, in 52% of the cases, it is correct. Also with Recall POI's were detected 41%. While these may not seem like very good results, because the dataset is far from perfect, and horribly incomplete, the results, I feel, are "good enough". 
+
+# Average Performance 
+## Algorithm outputs log 
+* STEP 1. Init stage. Select classificator 
+  * features_list: features_list = ['poi', 'fraction_to_poi', 'fraction_from_poi',    'from_specific_email', 'from_messages', 'exercised_stock_options', 'shared_receipt_with_poi', 'expenses', 'other', 'bonus', 'salary', 'total_stock_value']
+  * Classificator: clf = tree.DecisionTreeClassifier() 
+  * Metrics: Accuracy: 0.82620	
+  * Precision: 0.34617	
+  * Recall: 0.34150	
+  * F1: 0.34382	
+  * F2: 0.34242 
+  * Total predictions: 15000 
+  * True positives: 683	
+  * False positives: 1290 
+  * False negatives: 1317	
+  * True negatives: 11710 
+  * Classificator: clf = GaussianNB() 
+  * Metrics: Accuracy: 0.82100	
+  * Precision: 0.29026	
+  * Recall: 0.23700	
+  * F1: 0.26094
+  * F2: 0.24603 
+  * Total predictions: 15000 
+  * True positives: 474	
+  * False positives: 1159 
+  * False negatives: 1526	
+  * True negatives: 11841
+* STEP2. Select features by Decision Trees feature_importances_ 
+  * feature_importances_ Rank of features 0.260361 : other 0.231356 : exercised_stock_options 0.225797 : expenses 0.134677 : fraction_from_poi 0.118998 : shared_receipt_with_poi 0.028810 : salary 0.000000 : fraction_to_poi 0.000000 : from_specific_email 0.000000 : from_messages 0.000000 : bonus 0.000000 : total_stock_value
+ * Metrics after optimizing 
+   * Accuracy: 0.84029	
+   * Precision: 0.43873	
+   * Recall: 0.42250	
+   * F1: 0.43046	F2: 0.42565 
+   * Total predictions: 14000 
+   * True positives: 845	
+   * False positives: 1081 
+   * False negatives: 1155	
+   * True negatives: 10919
+
+* STEP3. Tune the algorithm 
+  * features_list features_list = ['poi', 'salary', 'fraction_from_poi', 'exercised_stock_options', 'shared_receipt_with_poi', 'expenses', 'other'] 
+  * best estimator: DecisionTreeClassifier(compute_importances=None, criterion='gini', max_depth=6, max_features=None, max_leaf_nodes=None, min_density=None, min_samples_leaf=1, min_samples_split=12, random_state=None, splitter='best') 
+ * Metrics after tuning 
+   * Accuracy: 0.86207 
+   * Precision: 0.52166 
+   * Recall: 0.41550 
+   * F1: 0.46257	
+   * F2: 0.43313 
+   * Total predictions: 14000 
+   * True positives: 831	
+   * False positives: 762 
+   * False negatives: 1169	
+   * True negatives: 11238
+
+* STEP4. Change features by hand (examine only email features) 
+  * features_list = ['poi', 'fraction_from_poi', 'fraction_to_poi',
+'exercised_stock_options', 'shared_receipt_with_poi']
+  * Metrics Accuracy: 0.83108	
+  * Precision: 0.43510	
+  * Recall: 0.32850	
+  * F1: 0.37436	
+  * F2: 0.34543 
+  * Total predictions: 13000 
+  * True positives: 657	
+  * False positives: 853 
+  * False negatives: 1343	
+  * True negatives: 10147
+
+* STEP5. Tune parameters by hand 
+  * parameters clf = tree.DecisionTreeClassifier(random_state=42, min_samples_split=2,max_depth=2, splitter='best') 
+   * Metrics Accuracy: 0.83550	
+    * Precision: 0.37947	
+    * Recall: 0.23850	
+    * F1: 0.29291	
+    * F2: 0.25764 
+    * Total predictions: 14000 
+    * True positives: 477	
+    * False positives: 780 
+    * False negatives: 1523	
+    * True negatives: 11220
+
+* STEP6. Final choise 
+  * features_list features_list = ['poi', 'fraction_from_poi', 'fraction_to_poi',
+'exercised_stock_options', 'shared_receipt_with_poi']
+  * parameters clf = tree.DecisionTreeClassifier(random_state=42, min_samples_split=12,max_depth=6, splitter='best' 
+  * Metrics Accuracy: 0.86207
+  * Precision: 0.52166	
+  * Recall: 0.41550	
+  * F1: 0.46257	
+  * F2: 0.43313 
+  * Total predictions: 14000 
+  * True positives: 831	
+  * False positives: 762 
+  * False negatives: 1169	
+  * True negatives: 11238
