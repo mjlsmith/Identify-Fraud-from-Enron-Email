@@ -28,6 +28,7 @@ from tester import test_classifier, dump_classifier_and_data
 ### Task 1: Select what features you'll use.
 ### features_list is a list of strings, each of which is a feature name.
 ### The first feature must be "poi".
+### Using 3 lists allows me to catigorize the features and remove the NaN as seen later
 features_list = ['poi',
                  'salary',
                  'fraction_from_poi',
@@ -36,14 +37,39 @@ features_list = ['poi',
                  'expenses',
                  'other']
 
+financial_features = ['salary',
+                      'deferral_payments',
+                      'total_payments',
+                      'loan_advances',
+                      'bonus',
+                      'restricted_stock_deferred',
+                      'deferred_income',
+                      'total_stock_value',
+                      'expenses',
+                      'exercised_stock_options',
+                      'other',
+                      'long_term_incentive',
+                      'restricted_stock', 
+                      'director_fees']
+
+email_features = ['to_messages',
+                  'from_poi_to_this_person', 
+                  'from_messages',
+                  'from_this_person_to_poi', 
+                  'shared_receipt_with_poi']
+
 ### Load the dictionary containing the dataset
 with open("final_project_dataset.pkl", "r") as data_file:
     data_dict = pickle.load(data_file)
 df = pd.DataFrame.from_dict(data_dict, orient='index')
 df = df.replace('NaN', np.nan)
 
-### Task 2: Remove outliers
+### Task 2: Remove outliers and NaN values
 data_dict.pop( 'TOTAL', 0 )
+
+df[financial_features] = df[financial_features].fillna(0)
+df[email_features] = df[email_features].fillna(df[email_features].median())
+
 ### Task 3: Create new feature(s)
 ###Create 3 new features 
 #get the top 3 bonuses and top 3 salaries and put into set
