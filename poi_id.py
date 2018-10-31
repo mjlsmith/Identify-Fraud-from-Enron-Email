@@ -10,6 +10,7 @@ sys.path.append("../tools/")
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.colors as mcolors
+import pandas as pd
 import os
 
 cdict = {'red': ((0., 1, 1),
@@ -36,7 +37,10 @@ features_list = ['poi',
                  'other']
 
 ### Load the dictionary containing the dataset
-data_dict = pickle.load(open("final_project_dataset.pkl", "r") )
+with open("final_project_dataset.pkl", "r") as data_file:
+    data_dict = pickle.load(data_file)
+df = pd.DataFrame.from_dict(data_dict, orient='index')
+df = df.replace('NaN', np.nan)
 
 ### Task 2: Remove outliers
 data_dict.pop( 'TOTAL', 0 )
